@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.spring.springboot.domain.BugdetailEntityMapper" >
+  <resultMap id="BaseResultMap" type="org.spring.springboot.dao.BugdetailEntity" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="bugno" property="bugno" jdbcType="VARCHAR" />
+    <result column="proname" property="proname" jdbcType="VARCHAR" />
+    <result column="demandname" property="demandname" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="dealname" property="dealname" jdbcType="VARCHAR" />
+    <result column="grade" property="grade" jdbcType="VARCHAR" />
+    <result column="seriousstate" property="seriousstate" jdbcType="VARCHAR" />
+    <result column="defectstate" property="defectstate" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="detector" property="detector" jdbcType="VARCHAR" />
+    <result column="checker" property="checker" jdbcType="VARCHAR" />
+    <result column="detectiontime" property="detectiontime" jdbcType="VARCHAR" />
+    <result column="updatetime" property="updatetime" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <sql id="Base_Column_List" >
+    id, bugno, proname, demandname, state, dealname, grade, seriousstate, defectstate, 
+    comment, detector, checker, detectiontime, updatetime
+  </sql>
+
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from bugdetail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectAll" parameterType="java.util.HashMap" resultType="org.spring.springboot.dao.BugdetailEntity"  >
+     select
+     <include refid="Base_Column_List" />
+     from bugdetail
+     <where>
+       <if test="dealname != null and dealname!='' ">
+         <bind name="pattern" value="'%' + dealname + '%'" />
+         dealname LIKE   #{pattern}
+       </if>
+
+       <if test="startdate != null and startdate!='' ">
+         AND detectiontime &gt;= #{startdate,jdbcType=VARCHAR}
+       </if>
+
+       <if test="enddate != null and enddate!='' ">
+         AND detectiontime &lt;= #{enddate,jdbcType=VARCHAR}
+       </if>
+     </where>
+    limit #{start,jdbcType=INTEGER},#{end ,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bugdetail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+
+  <insert id="insert" parameterType="org.spring.springboot.dao.BugdetailEntity" >
+    insert into bugdetail ( bugno, proname,
+      demandname, state, dealname, 
+      grade, seriousstate, defectstate, 
+      comment, detector, checker, 
+      detectiontime, updatetime)
+    values ( #{bugno,jdbcType=VARCHAR}, #{proname,jdbcType=VARCHAR},
+      #{demandname,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, #{dealname,jdbcType=VARCHAR}, 
+      #{grade,jdbcType=VARCHAR}, #{seriousstate,jdbcType=VARCHAR}, #{defectstate,jdbcType=VARCHAR}, 
+      #{comment,jdbcType=VARCHAR}, #{detector,jdbcType=VARCHAR}, #{checker,jdbcType=VARCHAR}, 
+      #{detectiontime,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR})
+  </insert>
+
+
+  <insert id="insertbatch" parameterType="java.util.List" >
+     insert into bugdetail ( bugno, proname,
+      demandname, state, dealname,
+      grade, seriousstate, defectstate,
+      comment, detector, checker,
+      detectiontime, updatetime) values
+    <foreach collection ="list" item="bug" index= "index" separator =",">
+      ( #{bug.bugno},#{bug.proname},
+      #{bug.demandname},#{bug.state},#{bug.dealname},#{bug.grade},#{bug.seriousstate},#{bug.defectstate},#{bug.comment},#{bug.detector},#{bug.checker},#{bug.detectiontime},#{bug.updatetime})
+                   </foreach >
+  </insert>
+
+
+  <insert id="insertSelective" parameterType="org.spring.springboot.dao.BugdetailEntity" >
+    insert into bugdetail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="bugno != null" >
+        bugno,
+      </if>
+      <if test="proname != null" >
+        proname,
+      </if>
+      <if test="demandname != null" >
+        demandname,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="dealname != null" >
+        dealname,
+      </if>
+      <if test="grade != null" >
+        grade,
+      </if>
+      <if test="seriousstate != null" >
+        seriousstate,
+      </if>
+      <if test="defectstate != null" >
+        defectstate,
+      </if>
+      <if test="comment != null" >
+        comment,
+      </if>
+      <if test="detector != null" >
+        detector,
+      </if>
+      <if test="checker != null" >
+        checker,
+      </if>
+      <if test="detectiontime != null" >
+        detectiontime,
+      </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="bugno != null" >
+        #{bugno,jdbcType=VARCHAR},
+      </if>
+      <if test="proname != null" >
+        #{proname,jdbcType=VARCHAR},
+      </if>
+      <if test="demandname != null" >
+        #{demandname,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="dealname != null" >
+        #{dealname,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null" >
+        #{grade,jdbcType=VARCHAR},
+      </if>
+      <if test="seriousstate != null" >
+        #{seriousstate,jdbcType=VARCHAR},
+      </if>
+      <if test="defectstate != null" >
+        #{defectstate,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="detector != null" >
+        #{detector,jdbcType=VARCHAR},
+      </if>
+      <if test="checker != null" >
+        #{checker,jdbcType=VARCHAR},
+      </if>
+      <if test="detectiontime != null" >
+        #{detectiontime,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+
+  <update id="updateByPrimaryKeySelective" parameterType="org.spring.springboot.dao.BugdetailEntity" >
+    update bugdetail
+    <set >
+      <if test="bugno != null" >
+        bugno = #{bugno,jdbcType=VARCHAR},
+      </if>
+      <if test="proname != null" >
+        proname = #{proname,jdbcType=VARCHAR},
+      </if>
+      <if test="demandname != null" >
+        demandname = #{demandname,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="dealname != null" >
+        dealname = #{dealname,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null" >
+        grade = #{grade,jdbcType=VARCHAR},
+      </if>
+      <if test="seriousstate != null" >
+        seriousstate = #{seriousstate,jdbcType=VARCHAR},
+      </if>
+      <if test="defectstate != null" >
+        defectstate = #{defectstate,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="detector != null" >
+        detector = #{detector,jdbcType=VARCHAR},
+      </if>
+      <if test="checker != null" >
+        checker = #{checker,jdbcType=VARCHAR},
+      </if>
+      <if test="detectiontime != null" >
+        detectiontime = #{detectiontime,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+  <update id="updateByPrimaryKey" parameterType="org.spring.springboot.dao.BugdetailEntity" >
+    update bugdetail
+    set bugno = #{bugno,jdbcType=VARCHAR},
+      proname = #{proname,jdbcType=VARCHAR},
+      demandname = #{demandname,jdbcType=VARCHAR},
+      state = #{state,jdbcType=VARCHAR},
+      dealname = #{dealname,jdbcType=VARCHAR},
+      grade = #{grade,jdbcType=VARCHAR},
+      seriousstate = #{seriousstate,jdbcType=VARCHAR},
+      defectstate = #{defectstate,jdbcType=VARCHAR},
+      comment = #{comment,jdbcType=VARCHAR},
+      detector = #{detector,jdbcType=VARCHAR},
+      checker = #{checker,jdbcType=VARCHAR},
+      detectiontime = #{detectiontime,jdbcType=VARCHAR},
+      updatetime = #{updatetime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
