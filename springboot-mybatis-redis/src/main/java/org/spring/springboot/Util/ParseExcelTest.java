@@ -69,19 +69,10 @@ public class ParseExcelTest {
                     if (sheet == null) {
                         continue;
                     }
-//                    System.out.println("=======================" + sheet.getSheetName() + "=========================");
 
                     int firstRowIndex = sheet.getFirstRowNum();
                     int lastRowIndex = sheet.getLastRowNum();
-//
-//                    // 读取首行 即,表头
-//                    Row firstRow = sheet.getRow(firstRowIndex);
-//                    for (int i = firstRow.getFirstCellNum(); i <= firstRow.getLastCellNum(); i++) {
-//                        Cell cell = firstRow.getCell(i);
-//                        String cellValue = getCellValue(cell, true);
-//                        System.out.print(" " + cellValue + "\t");
-//                    }
-//                    System.out.println("");
+
 
                     List   entity = null;
                     // 读取数据行
@@ -94,12 +85,10 @@ public class ParseExcelTest {
                             Cell currentCell = currentRow.getCell(columnIndex);// 当前单元格
                             String currentCellValue = getCellValue(currentCell, true);// 当前单元格的值
                             entity.add(currentCellValue);
-//                            System.out.print(currentCellValue + "\t");
                         }
                         System.out.println("");
                         entityList.add(ConvertEntity(entity));
                     }
-//                    System.out.println("======================================================");
                 }
 
                 return entityList;

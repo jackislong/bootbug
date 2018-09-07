@@ -5,6 +5,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.spring.springboot.service.BugDeatilService;
 import org.spring.springboot.service.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;

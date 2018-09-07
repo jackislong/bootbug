@@ -7,7 +7,8 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
- * describle
+ * 配置静态资源访问
+ * 设置访问首页访问路径
  *
  * @author Administrator
  * @date 2018-8-22.

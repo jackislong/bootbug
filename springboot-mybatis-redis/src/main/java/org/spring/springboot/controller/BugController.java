@@ -3,6 +3,8 @@ package org.spring.springboot.controller;
 import org.spring.springboot.Util.ParseExcelTest;
 import org.spring.springboot.service.BugDeatilService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

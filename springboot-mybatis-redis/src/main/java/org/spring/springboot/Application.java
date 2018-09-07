@@ -3,20 +3,18 @@ package org.spring.springboot;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-/**
- * Spring Boot 应用启动类
- *
- * Created by bysocket on 16/4/26.
- */
+
 // Spring Boot 应用的标识
-@SpringBootApplication
 // mapper 接口类扫描包配置
 @MapperScan("org.spring.springboot.domain")
 @EnableTransactionManagement
+@SpringBootApplication
 public class Application
-//        extends SpringBootServletInitializer
+        extends SpringBootServletInitializer
 {
 
     public static void main(String[] args) {
@@ -25,8 +23,8 @@ public class Application
         SpringApplication.run(Application.class,args);
     }
 
-//    @Override
-//    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-//        return application.sources(Application.class);
-//    }
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(Application.class);
+    }
 }
