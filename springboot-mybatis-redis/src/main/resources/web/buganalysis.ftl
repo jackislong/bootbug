@@ -41,6 +41,7 @@
 
     var chart = null;
     $(function () {
+        $("#startdate").val(getFirstDayOfWeek(new Date()));
         chart = Highcharts.chart('container', {
             chart: {
                 plotBackgroundColor: null,
@@ -48,7 +49,6 @@
                 plotShadow: false,
                 events:{
                     load : queryall
-//                    redraw:none
                 }
             },
             title: {
@@ -100,12 +100,12 @@
                 ]
             }]
         });
-    })
 
+    })
 
     var updata = new Array();
     function queryall() {
-        var par= "startdate="+$("#startdate").val()+"&"+"enddate ="+ $("#enddate").val();
+        var par= "startdate="+$("#startdate").val()+"&"+"enddate="+ $("#enddate").val();
         $.ajax({
             type: "POST",
             url: "${base}/analysis",

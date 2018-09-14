@@ -6,7 +6,7 @@
 <div class="demoTable">
     处理人：
     <div class="layui-inline">
-        <input class="layui-input" name="id" id="demoReload" autocomplete="off">
+        <input class="layui-input" name="id" id="demoReload"   autocomplete="off">
     </div>
     检测时间：
     <div class="layui-inline"> <!-- 注意：这一层元素并不是必须的 -->
@@ -20,6 +20,10 @@
 </div>
 <table id="demo" lay-filter="test"></table>
 <script>
+//    $(function () {
+//        $("#startdate").val(getFirstDayOfWeek(new Date()));
+//    })
+
     layui.use('laydate', function(){
         var laydate = layui.laydate;
 

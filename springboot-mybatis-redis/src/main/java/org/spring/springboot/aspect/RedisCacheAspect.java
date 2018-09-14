@@ -25,7 +25,7 @@ public class RedisCacheAspect {
 
     private static  final Logger  LOGGER = Logger.getLogger(RedisCacheAspect.class);
 
-    public    static  final  String BIZ_CACHE_REFIX="biz_cache_";
+    public    static  final  String BIZ_CACHE_REFIX="bug_cache_";
 
     @Autowired
     private RedisService  redisService;
@@ -41,19 +41,19 @@ public class RedisCacheAspect {
         Method currentMethod = AspectUtil.getMethod(point);
         //获取操作名称
         RedisCache cache = currentMethod.getAnnotation(RedisCache.class);
+        String key = AspectUtil.getKey(point, cache.key(), BIZ_CACHE_REFIX);
+        boolean hasKey = redisService.hasKey(key);
         boolean flush = cache.flush();
         if (flush) {
             LOGGER.info("清空缓存"+ BIZ_CACHE_REFIX);
-            redisService.delBatch(BIZ_CACHE_REFIX);
+            redisService.del(key);
             return point.proceed();
         }
-        String key = AspectUtil.getKey(point, cache.key(), BIZ_CACHE_REFIX);
-        boolean hasKey = redisService.hasKey(key);
         if (hasKey) {
             try {
                 LOGGER.info("从缓存中获取数据"+key);
                 return redisService.get(key);
-            } catch (Exception e) {
+            } catch (Exception e){
                 LOGGER.error("从缓存中获取数据失败！", e);
             }
         }

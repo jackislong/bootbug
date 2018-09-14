@@ -1,5 +1,7 @@
 package org.spring.springboot.annotaion;
 
+import org.spring.springboot.aspect.RedisTypeEnum;
+
 import java.lang.annotation.*;
 import java.util.concurrent.TimeUnit;
 
@@ -37,11 +39,17 @@ public @interface RedisCache {
      * 缓存失效时间，默认30
      * @return
      */
-    long  expire() default   30L;
+    int  expire() default   30;
 
     /**
      * 默认时间单位，默认天
      * @return
      */
     TimeUnit  unit()   default  TimeUnit.DAYS;
+
+    /**
+     * 存放类型
+     * @return
+     */
+    RedisTypeEnum  type()   default RedisTypeEnum.STRING;
 }

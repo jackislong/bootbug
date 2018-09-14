@@ -58,6 +58,15 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
 
+  <select id="personAna" parameterType="java.lang.String"  resultType="java.util.HashMap">
+     select dealname, count(1) as c,  LEFT(detectiontime,6) as t FROM  bugdetail
+     WHERE dealname = #{dealname,jdbcType=VARCHAR}
+     GROUP BY dealname ,LEFT(detectiontime,6)
+  </select>
+
+  <delete id="deleteAll" >
+     truncate   bugdetail
+  </delete>
 
   <insert id="insert" parameterType="org.spring.springboot.dao.BugdetailEntity" >
     insert into bugdetail ( bugno, proname,

@@ -35,4 +35,6 @@ public interface BugDeatilService {
      * @return
      */
     Object[] queryAllBug(String st,String end);
+
+    Map personAna(String name);
 }

@@ -21,4 +21,8 @@ public interface BugdetailEntityMapper {
     int insertbatch(List<BugdetailEntity> list);
 
     List<BugdetailEntity> selectAll(Map parMap);
+
+    int  deleteAll();
+
+    List<Map>   personAna(String dealName);
 }

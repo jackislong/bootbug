@@ -1,6 +1,5 @@
 package org.spring.springboot.service;
 
-import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -13,29 +12,17 @@ import java.util.concurrent.TimeUnit;
 public interface RedisService {
     <T> void set(String key, T value);
 
-    <T> void set(String key, T value, long expire, TimeUnit timeUnit);
+    <T> void set(String key, T value, int expire,TimeUnit timeUnit);
 
-    <T> T get(String key);
+    Object get(String key);
 
-    boolean expire(String key, long expire);
+    long expire(String key, int expire);
 
     void del(String key);
 
     void delBatch(Set<String> keys);
 
-    void delBatch(String keyPrefix);
-
-    <T> void setList(String key, List<T> list);
-
-    <T> void setList(String key, List<T> list, long expire, TimeUnit timeUnit);
-
-    <T> List<T> getList(String key, Class<T> clz);
-
     boolean hasKey(String key);
 
-    long getExpire(String key);
 
-    Set<String> keySet(String keyPrefix);
-
-    void flushAll(String keyPrefix);
 }
