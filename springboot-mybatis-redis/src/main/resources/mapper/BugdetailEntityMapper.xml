@@ -25,6 +25,8 @@
   </sql>
 
 
+
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
@@ -64,6 +66,30 @@
      GROUP BY dealname ,LEFT(detectiontime,6)
   </select>
 
+  <select id="analyProj"   parameterType="java.lang.String" resultType="java.util.HashMap">
+    select count(1) c,dealname  from bugdetail
+
+    WHERE   proname = #{_proname,jdbcType=VARCHAR}
+
+    GROUP BY  proname,dealname
+  </select>
+
+  <select id="queryAllProj" resultType="java.util.HashMap">
+     SELECT  DISTINCT  proname  FROM  bugdetail
+  </select>
+
+
+  <select id="querybuggroupbyperon"  parameterType="java.lang.String" resultType="java.util.HashMap">
+       SELECT  count(1) as c,proname  from bugdetail
+      WHERE  dealname = #{dealname,jdbcType=VARCHAR}
+        GROUP BY  proname ,dealname
+  </select>
+
+
+  <select id="queryalldealname" resultType="java.util.HashMap" >
+     SELECT  DISTINCT   dealname  FROM   bugdetail
+  </select>
+
   <delete id="deleteAll" >
      truncate   bugdetail
   </delete>
@@ -91,7 +117,7 @@
     <foreach collection ="list" item="bug" index= "index" separator =",">
       ( #{bug.bugno},#{bug.proname},
       #{bug.demandname},#{bug.state},#{bug.dealname},#{bug.grade},#{bug.seriousstate},#{bug.defectstate},#{bug.comment},#{bug.detector},#{bug.checker},#{bug.detectiontime},#{bug.updatetime})
-                   </foreach >
+   </foreach >
   </insert>
 
 

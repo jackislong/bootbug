@@ -95,5 +95,65 @@ public class BugDeatilServiceImpl implements BugDeatilService{
         return result;
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public Map analyProj(String proName) {
+        Map  result = new HashMap();
+        List<Map> list = mapper.analyProj(proName);
+        //处理人名称
+        List  mList = new ArrayList();
+        //bug数据
+        List  cList = new ArrayList();
+        for(Map  map:list){
+            mList.add(MapUtils.getString(map,"dealname"));
+            cList.add(MapUtils.getInteger(map,"c"));
+        }
+        result.put("m",mList.toArray());
+        result.put("c",cList.toArray());
+        result.put("projname",proName);
+        return result;
+    }
+
+    @Override
+    public List queryAllproj() {
+        List  projList = new ArrayList();
+
+        List<Map> list = mapper.queryAllProj();
+        for(Map  map:list){
+            projList.add(MapUtils.getString(map,"proname"));
+        }
+        return projList;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Map queryBugByGroupByPerson(String dealname) {
+        Map  result = new HashMap();
+        List<Map> list = mapper.querybuggroupbyperon(dealname);
+        //项目名称
+        List  mList = new ArrayList();
+        //bug数据
+        List  cList = new ArrayList();
+        for(Map  map:list){
+            mList.add(MapUtils.getString(map,"proname"));
+            cList.add(MapUtils.getInteger(map,"c"));
+        }
+        result.put("m",mList.toArray());
+        result.put("c",cList.toArray());
+        result.put("dealname",dealname);
+        return result;
+    }
+
+    @Override
+    public List queryalldealname() {
+        List  projList = new ArrayList();
+
+        List<Map> list = mapper.queryalldealname();
+        for(Map  map:list){
+            projList.add(MapUtils.getString(map,"dealname"));
+        }
+        return projList;
+    }
+
 
 }

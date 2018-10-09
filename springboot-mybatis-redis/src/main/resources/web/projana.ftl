@@ -5,38 +5,25 @@
 <#include 'include/nav.ftl'/>
 
 <div class="demoTable">
-    处理人：
-    <div class="layui-inline"> <!-- 注意：这一层元素并不是必须的 -->
-        <input type="text" class="layui-input" id="dealname">
-    </div>
-    <button class="layui-btn" onclick="javascript:updatedata();">搜索</button>
+        <label class="layui-form-label">项目名称</label>
+        <div class="layui-input-inline">
+            <select name="modules" lay-verify="required" lay-search="" id="projname">
+            </select>
+        </div>
+       <button class="layui-btn" onclick="javascript:updatedata();">搜索</button>
 </div>
 <!-- 图表容器 DOM -->
 <div id="container" style="width:800px;height:600px;"></div>
-<!-- 引入 highcharts.js -->
 <script>
 
-    layui.use('laydate', function(){
-        var laydate = layui.laydate;
-
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#startdate',//指定元素
-        });
-    });
-
-    layui.use('laydate', function(){
-        var laydate = layui.laydate;
-
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#enddate',//指定元素
-        });
-    });
 
 
     var perchart = null;
     $(function () {
+
+        queryAllproj();
+
+
         perchart = Highcharts.chart('container', {
             chart: {
                 type: 'column',
@@ -71,17 +58,16 @@
     })
 
 
-    var updata = new Array();
     function querydata() {
-        var par= "dealname="+$("#dealname").val();
+        var par= "projname="+$("#projname").val();
         $.ajax({
             type: "POST",
-            url: "${base}/personanalysis",
+            url: "${base}/projanalysis",
             data: par,
             success: function(result){
                 var cList = result.c;
                 var mList = result.m;
-                var name = result.name;
+                var name = result.projname;
                 perchart.update({
                     xAxis: {
                         categories: mList
@@ -97,14 +83,26 @@
 
     //修改数据
     function updatedata() {
-//        updata.length=0;//清空数据
         querydata();
-//        chart.update({
-//            series:[{
-//                data:updata
-//              }
-//            ]
-//        });
+    }
+
+
+    /**
+     * 获取所有项目数据填充项目下拉选
+     */
+    function   queryAllproj() {
+        var  html ="";
+        $.ajax({
+            type: "POST",
+            url: "${base}/allproj",
+            async:false,
+            success: function(result){
+                $.each(result,function (i,item) {
+                    html += "<option value="+item+">"+item+"</option>";
+                })
+                $("#projname").append(html);
+            }
+        });
     }
 
 </script>

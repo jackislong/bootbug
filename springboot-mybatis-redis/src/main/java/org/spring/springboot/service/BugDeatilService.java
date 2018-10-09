@@ -37,4 +37,12 @@ public interface BugDeatilService {
     Object[] queryAllBug(String st,String end);
 
     Map personAna(String name);
+
+    Map analyProj(String proname);
+
+    List queryAllproj();
+
+    Map   queryBugByGroupByPerson(String dealname);
+
+    List  queryalldealname();
 }

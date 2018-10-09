@@ -2,7 +2,9 @@
     <li class="layui-nav-item "><a href="${base}/showbug">bug列表</a></li>
     <li class="layui-nav-item"><a href="${base}/upload">文件上传</a></li>
     <li class="layui-nav-item"><a href="${base}/bugana">bug分析</a></li>
-    <li class="layui-nav-item"><a href="${base}/personana">个人BUG汇总</a></li>
+    <li class="layui-nav-item"><a href="${base}/personana">个人BUG时间分布</a></li>
+    <li class="layui-nav-item"><a href="${base}/projanaly">BUG个人分布</a></li>
+    <li class="layui-nav-item"><a href="${base}/dealnameana">BUG项目分布</a></li>
 </ul>
 <script>
     layui.use('element', function(){
@@ -23,10 +25,13 @@
         }
         var y = date.getFullYear(); //年
         var m = date.getMonth() + 1; //月
-        if(m<11){
+        if(m<10){
             m='0'+m;
         }
         var d = date.getDate(); //日
+        if(d<10){
+            d='0'+d;
+        }
         return y + "-" + m + "-" + d;
     }
 

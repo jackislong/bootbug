@@ -43,7 +43,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
 
-            <!--&lt;!&ndash;部署是 放开&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;部署是 放开&ndash;&gt;&ndash;&gt;-->
             <!--<exclusions>-->
                 <!--<exclusion>-->
                     <!--<groupId>org.springframework.boot</groupId>-->

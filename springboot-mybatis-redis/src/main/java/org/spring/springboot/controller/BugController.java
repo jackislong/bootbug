@@ -1,5 +1,6 @@
 package org.spring.springboot.controller;
 
+import org.apache.commons.lang3.StringUtils;
 import org.spring.springboot.Util.ParseExcelTest;
 import org.spring.springboot.service.BugDeatilService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,5 +85,53 @@ public class BugController {
     @ResponseBody
     public Map personAnalysis(@RequestParam(value ="dealname",defaultValue = "兰勤川") String dealname){
         return deatilService.personAna(dealname);
+    }
+
+
+    /**
+     * 项目BUG页面
+     * @return
+     */
+    @RequestMapping(value = "/projanaly")
+    public String  projana(){
+        return "projana";
+    }
+
+    @RequestMapping(value = "/projanalysis",method = RequestMethod.POST)
+    @ResponseBody
+    public Map projAnalysis(@RequestParam(value ="projname",defaultValue = "EC直销产品") String projname){
+        if(StringUtils.isBlank(projname) || "null".equals(projname)){
+            projname = "EC直销产品";
+        }
+        return deatilService.analyProj(projname);
+    }
+
+
+    @RequestMapping(value = "/allproj",method = RequestMethod.POST)
+    @ResponseBody
+    public List allproj(){
+        return deatilService.queryAllproj();
+    }
+
+
+    @RequestMapping(value = "/dealnameana")
+    public String dealnameana(){
+        return "dealnameana";
+    }
+
+    @RequestMapping(value = "/dealnameanalysis",method = RequestMethod.POST)
+    @ResponseBody
+    public Map dealnameanalysis(@RequestParam(value ="dealname",defaultValue = "") String dealname){
+        if(StringUtils.isBlank(dealname) || "null".equals(dealname)){
+            dealname = "兰勤川";
+        }
+        return deatilService.queryBugByGroupByPerson(dealname);
+    }
+
+
+    @RequestMapping(value = "/alldealname",method = RequestMethod.POST)
+    @ResponseBody
+    public List alldealname(){
+        return deatilService.queryalldealname();
     }
 }
